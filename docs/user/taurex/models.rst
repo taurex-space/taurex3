@@ -65,8 +65,10 @@ each file and combines the resulting spectra with the optional ``fractions`` lis
 For retrievals, provide ``N-1`` fractions rather than ``N`` if you want TauREx to
 adapt the last region automatically. In that case the final fraction is inferred
 from the remaining weight so that the total remains unity.
-For a complete worked setup, see the multimodel notebook example in
-:ref:`Examples`.
+The outer ``Model.model_type`` sets the observing geometry for all regions.
+Use separate composite models to calculate transmission and eclipse spectra.
+See :doc:`/examples/11_multimodel` for a worked YAML setup and a plot of the
+regional spectra and their weighted combination.
 
 Example composite transmission setup:
 

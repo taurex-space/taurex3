@@ -121,6 +121,10 @@ parameters such as ``m1_T`` whenever profiles are not coupled between regions:
 The same pattern applies to ``model_type: multi_eclipse`` and
 ``model_type: multi_directimage``.
 
+The outer ``Model.model_type`` sets the observing geometry for every region.
+See :doc:`/examples/11_multimodel` for a worked YAML example with regional
+files and an explanation of the scope of the composite model.
+
 
 Complete example
 ----------------
