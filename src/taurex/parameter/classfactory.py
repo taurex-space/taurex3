@@ -48,6 +48,14 @@ class DiscoverMethod(t.Protocol):
         ...
 
 
+KEYWORD_ALIASES: t.Dict[str, str] = {
+    # Since TauREx 3.5 the PHOENIX star is provided by the phoenix4all
+    # package instead of the removed built-in ``PhoenixStar``.
+    "phoenix": "phoenix4all",
+}
+"""Input keywords redirected to another keyword (lower case) before lookup."""
+
+
 T = t.TypeVar("T", bound=InputKeywordMethod)
 AllT = t.TypeVar("AllT")
 OpacT = t.TypeVar("OpacT", bound=DiscoverMethod)
@@ -616,12 +624,19 @@ class ClassFactory(Singleton):
     ) -> t.Type[T]:
         """Returns a class that has the given keyword.
 
-        Returns the first found if multiple klasses have the same keyword.
+        Keywords listed in :data:`KEYWORD_ALIASES` are first redirected to
+        their target keyword. Returns the first found if multiple klasses
+        have the same keyword.
 
         """
         klasses = (
             self.all_klasses if baseclass is None else self.klass_from_base(baseclass)
         )
+
+        alias = KEYWORD_ALIASES.get(keyword.lower())
+        if alias is not None:
+            self.log.info("Keyword '%s' maps to '%s'", keyword, alias)
+            keyword = alias
 
         for k in klasses:
             if hasattr(k, "input_keywords") and keyword.lower() in [

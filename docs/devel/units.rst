@@ -54,7 +54,7 @@ contract because their representation is not unambiguous:
 * file-driven legacy light-curve inputs;
 * ``PowerGas.beta``, whose effective unit depends on the empirical coefficient
   convention;
-* ``PhoenixStar.magnitudeK``, which requires a separate decision about
+* ``Star.magnitudeK``, which requires a separate decision about
   logarithmic magnitude units.
 
 Supporting these inputs requires a dedicated file schema or component-specific

@@ -170,9 +170,9 @@ Each argument is automatically passed to the correct class for you! Anyway lets 
 Nice! Now whats makes them special is that we can apply it to the Phoenix model
 with no additional effort::
 
-    >>> from taurex.stellar import PhoenixStar
-    >>> new_star = enhance_class(PhoenixStar, [Noiser, ], temperature=5800, radius=1.0,
-                                 phoenix_path='/path/to/phoenix', noise_level=1e6)
+    >>> from phoenix4all.taurex import Phoenix4AllStar
+    >>> new_star = enhance_class(Phoenix4AllStar, [Noiser, ], temperature=5800, radius=1.0,
+                                 noise_level=1e6)
 
 .. figure::  _static/phoenixnoise.png
     :align:   center
@@ -181,8 +181,8 @@ with no additional effort::
 
 We can do the same with the ``Denoiser``::
 
-    >>> new_star = enhance_class(PhoenixStar, [Denoiser, ], temperature=5800, radius=1.0,
-                                phoenix_path='/path/to/phoenix', kernel_size=11)
+    >>> new_star = enhance_class(Phoenix4AllStar, [Denoiser, ], temperature=5800, radius=1.0,
+                                kernel_size=11)
 
 .. figure::  _static/phoenixdenoise.png
     :align:   center
@@ -191,13 +191,13 @@ We can do the same with the ``Denoiser``::
 
 The real magic is combining both!! We could heavily denoise the spectrum and then add noise::
 
-    >>> new_star = enhance_class(PhoenixStar, [Noiser, Denoiser, ], temperature=5800, radius=1.0,
-        phoenix_path='/path/to/phoenix', kernel_size=21, noise_level=1e6)
+    >>> new_star = enhance_class(Phoenix4AllStar, [Noiser, Denoiser, ], temperature=5800, radius=1.0,
+        kernel_size=21, noise_level=1e6)
 
 *OR*, add noise and then denoise it::
 
-    >>> new_star = enhance_class(PhoenixStar, [Denoiser, Noiser, ], temperature=5800, radius=1.0,
-        phoenix_path='/path/to/phoenix', kernel_size=21, noise_level=1e6)
+    >>> new_star = enhance_class(Phoenix4AllStar, [Denoiser, Noiser, ], temperature=5800, radius=1.0,
+        kernel_size=21, noise_level=1e6)
 
 .. list-table::
 

@@ -11,9 +11,6 @@ The ``star_type`` available are:
     - ``blackbody``
         - Star with a blackbody SED
         - Class :class:`~taurex.data.stellar.star.BlackbodyStar`
-    - ``phoenix``
-        - Uses the PHOENIX_ library for the SED
-        - :class:`~taurex.data.stellar.phoenix.PhoenixStar`
     - ``phoenix4all``
         - Uses the ``phoenix4all`` library for PHOENIX spectra with auto-download
         - Class ``phoenix4all.taurex.Phoenix4AllStar``
@@ -65,72 +62,13 @@ A Sun like star as a black body::
 
 -----------------------------------
 
-PHOENIX
-========
-``star_type = phoenix``
-
-Stellar emission spectrum is read from the PHOENIX_ library ``.fits.gz`` files and interpolated to the correct temperature.
-Any temperature outside of the range provided by PHOENIX will use a blackbody SED instead.
-The ``.fits.gz`` filenames must include the temperature as the first number. TauREx3 splits the filename
-in terms of numbers so any text can be included in the beginning of the file name, therefore these are valid::
-    lte05600.fits.gz  # 5600 Kelvin
-    abunchofothertext-andanother-here05660-0.4_0.5.0.8.fits.gz #5660 Kelvin
-    5700-056-034-0434.fits.gz #5700 Kelvin
-
---------
-Keywords
---------
-
-+------------------+--------------+----------------------------+--------------+
-| Variable         | Type         | Description                | Default      |
-+------------------+--------------+----------------------------+--------------+
-| ``phoenix_path`` | :obj:`str`   | Path to ``.fits.gz`` files | **Required** |
-+------------------+--------------+----------------------------+--------------+
-| ``temperature``  | :obj:`float` | Effective temperature in K | 5000         |
-+------------------+--------------+----------------------------+--------------+
-| ``radius``       | :obj:`float` | Radius in solar radius     | 1.0          |
-+------------------+--------------+----------------------------+--------------+
-| ``mass``         | :obj:`float` | Mass in solar mass         | 1.0          |
-+------------------+--------------+----------------------------+--------------+
-| ``distance``     | :obj:`float` | Distance from Earth in pc  | 1.0          |
-+------------------+--------------+----------------------------+--------------+
-| ``metallicity``  | :obj:`float` | Metallicity in solar units | 1.0          |
-+------------------+--------------+----------------------------+--------------+
-| ``magnitudeK``   | :obj:`float` | Magnitude in K-band        | 10.0         |
-+------------------+--------------+----------------------------+--------------+
-
-The physical inputs ``temperature``, ``radius``, ``mass`` and ``distance``
-also accept :class:`astropy.units.Quantity`. Unitless values retain the units
-listed above. ``metallicity`` accepts a dimensionless Quantity.
-
---------
-Examples
---------
-
-A Sun like star using PHOENIX spectra::
-
-    [Star]
-    star_type = phoenix
-    radius = 1.0
-    temperature = 5800
-    phoenix_path = /mypath/to/fitsfiles/
-
-
-
-
-
-.. _PHOENIX: https://arxiv.org/abs/1303.5632
-
------------------------------------
-
 Phoenix4All
 ============
 ``star_type = phoenix4all``
 
 Stellar emission spectrum is obtained from the ``phoenix4all`` library, which
 automatically downloads (or loads from cache) high-resolution PHOENIX stellar
-atmosphere spectra from multiple back-end sources. This is the recommended
-replacement for the legacy ``phoenix`` star type.
+atmosphere spectra from multiple back-end sources.
 
 Phoenix4All is fully integrated into TauREx 3: the ``phoenix4all`` package is a
 required dependency and its ``phoenix4all.taurex.Phoenix4AllStar`` class is
@@ -206,6 +144,14 @@ Using a different source and disabling Planck fallback::
     source = synphot
     use_planck = False
 
+
+.. note::
+
+    Before TauREx 3.5, ``star_type = phoenix`` selected a built-in
+    ``PhoenixStar`` class that read ``.fits.gz`` files from a ``phoenix_path``
+    directory. That class has been removed. ``star_type = phoenix`` is still
+    accepted, but it now redirects to ``phoenix4all``, so the keywords listed
+    above apply. ``phoenix_path`` is no longer accepted and raises an error.
 
 
 .. _phoenix4all: https://github.com/taurex-space/phoenix4all

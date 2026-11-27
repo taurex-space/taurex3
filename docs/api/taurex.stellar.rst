@@ -17,14 +17,6 @@ Blackbody
    :undoc-members:
    :show-inheritance:
 
-PHOENIX (legacy)
------------------------
-
-.. automodule:: taurex.data.stellar.phoenix
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Phoenix4All
 -----------
 
