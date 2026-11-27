@@ -17,3 +17,11 @@ scratch/
 node_modules/
 .docs-preview/
 .github/copilot-instructions.md
+
+# Local agent files and environment settings
+/.agents/
+/.codex/
+/.rseng-agent-skills-*
+/.rseng-agent-skills.codex.json
+/.rseng-backup-*/
+/.env
