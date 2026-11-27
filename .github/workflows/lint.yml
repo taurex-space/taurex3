@@ -24,7 +24,7 @@ jobs:
 
       - name: Upgrade pip
         run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
+          pip install --requirement=.github/workflows/requirements-pip.txt
           pip --version
 
       - name: Install package and lint extra
